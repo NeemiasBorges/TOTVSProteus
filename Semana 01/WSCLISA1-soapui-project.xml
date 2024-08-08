@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="1cd69bac-0513-48bf-aed0-9ce58e3c1a40" activeEnvironment="Default" name="WSCLISA1" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="89c5465f-65af-40c2-9aab-c307a38d4a90" wsaVersion="NONE" name="WSCLISA1SOAP" type="wsdl" bindingName="{http://127.0.0.1:8099/}WSCLISA1SOAP" soapVersion="1_1" anonymous="optional" definition="http://127.0.0.1:8099/WSCLISA1.apw?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://127.0.0.1:8099/WSCLISA1.apw?WSDL"><con:part><con:url>http://127.0.0.1:8099/WSCLISA1.apw?WSDL</con:url><con:content><![CDATA[<!--Generated 20220928 17:03:09 by ADVPL WSDL Server 1.110216 / Protheus 7.00.210324P-20211206-->
+<definitions targetNamespace="http://127.0.0.1:8099/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://127.0.0.1:8099/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://127.0.0.1:8099/">
+      <s:element name="BUSCACLIENTE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="_CCODCLIENTELOJA" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BUSCACLIENTERESPONSE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="BUSCACLIENTERESULT" type="s0:STRETORNOGERAL"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="INCLUIRCLIENTE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CTOKEN" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="WSDADOSCLI" type="s0:STCLIENTE"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="INCLUIRCLIENTERESPONSE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="INCLUIRCLIENTERESULT" type="s0:STRETMSG"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="STCLIENTE">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CLIENTEA1BAIRRO" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CLIENTEA1CEP" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CLIENTEA1COD" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CLIENTEA1CPF" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CLIENTEA1END" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CLIENTEA1ESTADO" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CLIENTEA1LOJA" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CLIENTEA1MUNICIP" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CLIENTEA1NOME" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="STRETMSG">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CMESSAGE" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CRET" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="STRETORNOGERAL">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="WSSTCLIENT" type="s0:STCLIENTE"/>
+          <s:element minOccurs="1" maxOccurs="1" name="WSSTRETMSG" type="s0:STRETMSG"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </types>
+  <message name="BUSCACLIENTESOAPIN">
+    <part name="parameters" element="s0:BUSCACLIENTE"/>
+  </message>
+  <message name="BUSCACLIENTESOAPOUT">
+    <part name="parameters" element="s0:BUSCACLIENTERESPONSE"/>
+  </message>
+  <message name="INCLUIRCLIENTESOAPIN">
+    <part name="parameters" element="s0:INCLUIRCLIENTE"/>
+  </message>
+  <message name="INCLUIRCLIENTESOAPOUT">
+    <part name="parameters" element="s0:INCLUIRCLIENTERESPONSE"/>
+  </message>
+  <portType name="WSCLISA1SOAP">
+    <operation name="BUSCACLIENTE">
+      <documentation>Busca clientes da tabela SA1 com base no Código e Loja</documentation>
+      <input message="s0:BUSCACLIENTESOAPIN"/>
+      <output message="s0:BUSCACLIENTESOAPOUT"/>
+    </operation>
+    <operation name="INCLUIRCLIENTE">
+      <documentation>Inclui dados de cliente na base de dados do Protheus/SA1</documentation>
+      <input message="s0:INCLUIRCLIENTESOAPIN"/>
+      <output message="s0:INCLUIRCLIENTESOAPOUT"/>
+    </operation>
+  </portType>
+  <binding name="WSCLISA1SOAP" type="s0:WSCLISA1SOAP">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="BUSCACLIENTE">
+      <soap:operation soapAction="http://127.0.0.1:8099/BUSCACLIENTE" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="INCLUIRCLIENTE">
+      <soap:operation soapAction="http://127.0.0.1:8099/INCLUIRCLIENTE" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="WSCLISA1">
+    <documentation>Serviço para retornar os dados de cliente específico</documentation>
+    <port name="WSCLISA1SOAP" binding="s0:WSCLISA1SOAP">
+      <soap:address location="http://127.0.0.1:8099/WSCLISA1.apw"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://127.0.0.1:8099/WSCLISA1.apw</con:endpoint></con:endpoints><con:operation id="453bf158-52c1-48ab-8a95-ed20bbd760cf" isOneWay="false" action="http://127.0.0.1:8099/BUSCACLIENTE" name="BUSCACLIENTE" bindingOperationName="BUSCACLIENTE" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="aec50baf-eafa-4748-bb96-0d1dfc5297b5" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8099/WSCLISA1.apw</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://127.0.0.1:8099/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ns:BUSCACLIENTE>\r
+         <ns:_CCODCLIENTELOJA>fdfddf</ns:_CCODCLIENTELOJA>\r
+      </ns:BUSCACLIENTE>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://127.0.0.1:8099/BUSCACLIENTE"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="a125e9fa-176b-4f61-b3d1-1dcf44f5c15a" isOneWay="false" action="http://127.0.0.1:8099/INCLUIRCLIENTE" name="INCLUIRCLIENTE" bindingOperationName="INCLUIRCLIENTE" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="28638c15-ba9c-408c-954a-c12290f5cd3c" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8099/WSCLISA1.apw</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://127.0.0.1:8099/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ns:INCLUIRCLIENTE>\r
+         <ns:CTOKEN>#euamoAD</ns:CTOKEN>\r
+         <ns:WSDADOSCLI>\r
+            <!--Optional:-->\r
+            <ns:CLIENTEA1BAIRRO></ns:CLIENTEA1BAIRRO>\r
+            <!--Optional:-->\r
+            <ns:CLIENTEA1CEP></ns:CLIENTEA1CEP>\r
+            <!--Optional:-->\r
+            <ns:CLIENTEA1COD></ns:CLIENTEA1COD>\r
+            <!--Optional:-->\r
+            <ns:CLIENTEA1CPF></ns:CLIENTEA1CPF>\r
+            <!--Optional:-->\r
+            <ns:CLIENTEA1END></ns:CLIENTEA1END>\r
+            <!--Optional:-->\r
+            <ns:CLIENTEA1ESTADO></ns:CLIENTEA1ESTADO>\r
+            <!--Optional:-->\r
+            <ns:CLIENTEA1LOJA></ns:CLIENTEA1LOJA>\r
+            <!--Optional:-->\r
+            <ns:CLIENTEA1MUNICIP></ns:CLIENTEA1MUNICIP>\r
+            <!--Optional:-->\r
+            <ns:CLIENTEA1NOME></ns:CLIENTEA1NOME>\r
+         </ns:WSDADOSCLI>\r
+      </ns:INCLUIRCLIENTE>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://127.0.0.1:8099/INCLUIRCLIENTE"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

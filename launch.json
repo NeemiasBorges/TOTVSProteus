@@ -1,0 +1,74 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "totvs_language_debug",
+			"request": "launch",
+			"name": "TOTVS_Debug_SmartClient",
+			"program": "${command:AskForProgramName}",
+			"cwb": "${workspaceFolder}",
+			"smartclientBin": "C:/TOTVS/TOTVS_P1212310/Protheus/bin/smartclient/smartclient.exe",
+			"isMultiSession": true,
+			"enableTableSync": true,
+			"extendFeatures": {
+				"charDetails": false
+			}
+		},
+		{
+			"type": "totvs_language_web_debug",
+			"request": "launch",
+			"name": "TOTVS_Debug_WebApp",
+			"program": "${command:AskForProgramName}",
+			"cwb": "${workspaceFolder}",
+			"programArguments": [],
+			"enableMultiThread": false,
+			"enableProfile": false,
+			"isAccessibilityMode": false,
+			"doNotShowSplash": false,
+			"ignoreFiles": false,
+			"smartclientUrl": "http://localhost:6543/webapp/"
+		},
+		{
+			"type": "totvs_language_web_debug",
+			"request": "launch",
+			"name": "TOTVS_Debug_REST",
+			"program": "${command:AskForProgramName}",
+			"cwb": "${workspaceFolder}",
+			"programArguments": [],
+			"enableMultiThread": true,
+			"enableProfile": false,
+			"isAccessibilityMode": false,
+			"doNotShowSplash": false,
+			"ignoreFiles": false,
+			"smartclientUrl": "http://localhost:6544/"
+		}
+	],
+	"lastPrograms": [
+		{
+			"label": "SIGACOM"
+		},
+		{
+			"args": [],
+			"label": "olaMd"
+		},
+		{
+			"args": [],
+			"label": "u_olaMd"
+		},
+		{
+			"args": [],
+			"label": "U_GDCTXMD1"
+		},
+		{
+			"label": "U_GDCTXMD2"
+		},
+		{
+			"label": "SIGAESP"
+		},
+		{
+			"label": "SIGAFAT"
+		}
+	],
+	"lastProgramExecuted": "SIGAFAT",
+	"lastProgramArguments": []
+}
