@@ -7,6 +7,7 @@ Class Pessoa
     public data Sexo   as character
     public data Altura as numeric
     public data Peso   as numeric
+    public data IMC    as numeric
     
     Public method new()          as Object
     public method InformaDados() as logical
@@ -25,23 +26,21 @@ Method InformaDados(pNome, pIdade, pSexo, pAltura, pPeso) class Pessoa
     ::Peso   := pPeso
 Return .T.
 
-Method ExibeDados(newIMC) class Pessoa
+Method ExibeDados() class Pessoa
     local Mensagem as character
-    Mensagem := "Confira se as informações inseridas estão corretas: "+ CRLF
+    Mensagem := "Confira se as informacoes inseridas estao corretas: "+ CRLF
     Mensagem += " Nome..: " + ::Nome + CRLF
     Mensagem += " Idade..: " + Str(::Idade, 3) + " anos"+ CRLF
     Mensagem += " Sexo..: " + ::Sexo + CRLF
     Mensagem += " Altura..: " + cValToChar(::Altura) + " m"+ CRLF
     Mensagem += " Peso..: " + Str(::Peso, 4, 1) + " kg"+ CRLF
-    Mensagem += " IMC..: " + cValToChar(Round(newIMC,2))
+    Mensagem += " IMC..: " + cValToChar(Round(::IMC,2))
     Alert(Mensagem)
 Return
 
 Method CalculaIMC() class Pessoa
-    Local IMC as numeric
-    
-    IMC := ::Peso / (::Altura * ::Altura)
-Return IMC
+    ::IMC := ::Peso / (::Altura * ::Altura)
+Return ::IMC
 
 Function U_Main() as logical
     Local oPessoa as object
@@ -51,8 +50,8 @@ Function U_Main() as logical
     Local Sexo    as character
     Local Altura  as numeric
     Local Peso    as numeric
-    Local lIMC    as numeric
     Local nContador as numeric
+    Local aPessoas := {} as array
 
     For nContador := 1 To 3
         oPessoa := Pessoa():New()
@@ -66,11 +65,14 @@ Function U_Main() as logical
         lSuccess := oPessoa:InformaDados(Nome,Idade,Sexo,Altura,Peso)
     
         If lSuccess
-            lIMC := oPessoa:CalculaIMC()
-            oPessoa:ExibeDados(lIMC)
-            IMCResultado(lIMC)
+            oPessoa:CalculaIMC()
+            oPessoa:ExibeDados()
+            IMCResultado(oPessoa:IMC)
+            AAdd(aPessoas, oPessoa)
         EndIf
     Next nContador
+
+    ExibirRanking(aPessoas)
 
 Return .T.
 
@@ -78,7 +80,7 @@ Static Function IMCResultado(IMC)
     Local TabelaIMC := {} as array
     Local Mensagem as character
     
-    Mensagem := "De acordo com a Organização Mundial da Saúde, seu IMC " + cValToChar(Round(IMC,2)) + " indica que você está com "
+    Mensagem := "De acordo com a Organizacao Mundial da Saude, seu IMC " + cValToChar(Round(IMC,2)) + " indica que voce esta com "
     
     AAdd(TabelaIMC, {0   ,18.5, "Baixo Peso"})
     AAdd(TabelaIMC, {18.5,24.9, "Peso normal"})
@@ -101,7 +103,24 @@ Static Function IMCResultado(IMC)
         Case IMC >= TabelaIMC[6][1] .and. IMC <= TabelaIMC[6][2]
             FWAlertInfo(Mensagem + TabelaIMC[6][3], "Resultado - IMC")
         OTHERWISE
-            FWAlertInfo("Resultado não encontrado", "Resultado - IMC")
+            FWAlertInfo("Resultado nao encontrado", "Resultado - IMC")
     EndCase
+
+Return
+
+Static Function ExibirRanking(aPessoas)
+    Local nI as numeric
+    Local cRanking as character
+    Local nIdealIMC := 21.7 
+
+    ASort(aPessoas, , , {|x, y| Abs(x:IMC - nIdealIMC) < Abs(y:IMC - nIdealIMC)})
+
+    cRanking := "Ranking de Saude (do mais saudavel ao menos saudavel):" + CRLF + CRLF
+
+    For nI := 1 To Len(aPessoas)
+        cRanking += StrZero(nI, 2) + ". " + aPessoas[nI]:Nome + " - IMC: " + cValToChar(Round(aPessoas[nI]:IMC, 2)) + CRLF
+    Next nI
+
+    FWAlertInfo(cRanking, "Ranking de Saude")
 
 Return
