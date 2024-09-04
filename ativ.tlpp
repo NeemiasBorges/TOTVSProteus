@@ -1,0 +1,107 @@
+#include "tlpp-core.th"
+#include "totvs.ch"
+
+Class Pessoa
+    public data Nome   as character
+    public data Idade  as numeric
+    public data Sexo   as character
+    public data Altura as numeric
+    public data Peso   as numeric
+    
+    Public method new()          as Object
+    public method InformaDados() as logical
+    public method ExibeDados()
+    public method CalculaIMC()   as numeric
+EndClass
+
+Method New() class Pessoa
+Return ::Self
+
+Method InformaDados(pNome, pIdade, pSexo, pAltura, pPeso) class Pessoa
+    ::Nome   := pNome
+    ::Idade  := pIdade
+    ::Sexo   := pSexo
+    ::Altura := pAltura
+    ::Peso   := pPeso
+Return .T.
+
+Method ExibeDados(newIMC) class Pessoa
+    local Mensagem as character
+    Mensagem := "Confira se as informações inseridas estão corretas: "+ CRLF
+    Mensagem += " Nome..: " + ::Nome + CRLF
+    Mensagem += " Idade..: " + Str(::Idade, 3) + " anos"+ CRLF
+    Mensagem += " Sexo..: " + ::Sexo + CRLF
+    Mensagem += " Altura..: " + cValToChar(::Altura) + " m"+ CRLF
+    Mensagem += " Peso..: " + Str(::Peso, 4, 1) + " kg"+ CRLF
+    Mensagem += " IMC..: " + cValToChar(Round(newIMC,2))
+    Alert(Mensagem)
+Return
+
+Method CalculaIMC() class Pessoa
+    Local IMC as numeric
+    
+    IMC := ::Peso / (::Altura * ::Altura)
+Return IMC
+
+Function U_Main() as logical
+    Local oPessoa as object
+    Local lSuccess := .F. as logical
+    Local Nome    as character
+    Local Idade   as numeric
+    Local Sexo    as character
+    Local Altura  as numeric
+    Local Peso    as numeric
+    Local lIMC    as numeric
+    Local nContador as numeric
+
+    For nContador := 1 To 3
+        oPessoa := Pessoa():New()
+
+        Nome    := FWInputBox("Informe o Nome do usuario " + cValToChar(nContador) ,"")
+        Idade   := GetDtoVal(FWInputBox("Informe a Idade do usuario " + cValToChar(nContador),""))
+        Sexo    := FWInputBox("Informe o Sexo do usuario " + cValToChar(nContador),"")
+        Altura  := GetDtoVal(FWInputBox("Informe a Altura do usuario " + cValToChar(nContador),""))
+        Peso    := GetDtoVal(FWInputBox("Informe o Peso do usuario " + cValToChar(nContador),""))
+    
+        lSuccess := oPessoa:InformaDados(Nome,Idade,Sexo,Altura,Peso)
+    
+        If lSuccess
+            lIMC := oPessoa:CalculaIMC()
+            oPessoa:ExibeDados(lIMC)
+            IMCResultado(lIMC)
+        EndIf
+    Next nContador
+
+Return .T.
+
+Static Function IMCResultado(IMC)
+    Local TabelaIMC := {} as array
+    Local Mensagem as character
+    
+    Mensagem := "De acordo com a Organização Mundial da Saúde, seu IMC " + cValToChar(Round(IMC,2)) + " indica que você está com "
+    
+    AAdd(TabelaIMC, {0   ,18.5, "Baixo Peso"})
+    AAdd(TabelaIMC, {18.5,24.9, "Peso normal"})
+    AAdd(TabelaIMC, {25  ,29.9, "Sobrepeso"})
+    AAdd(TabelaIMC, {30  ,34.9, "Obesidade grau I"})
+    AAdd(TabelaIMC, {35  ,39.9, "Obesidade grau II"})
+    AAdd(TabelaIMC, {40  ,9999, "Obesidade grau III"})
+    
+    Do Case
+        Case IMC >= TabelaIMC[1][1] .and. IMC <= TabelaIMC[1][2]
+            FWAlertInfo(Mensagem + TabelaIMC[1][3], "Resultado - IMC")
+        Case IMC >= TabelaIMC[2][1] .and. IMC <= TabelaIMC[2][2]
+            FWAlertInfo(Mensagem + TabelaIMC[2][3], "Resultado - IMC")
+        Case IMC >= TabelaIMC[3][1] .and. IMC <= TabelaIMC[3][2]
+            FWAlertInfo(Mensagem + TabelaIMC[3][3], "Resultado - IMC")
+        Case IMC >= TabelaIMC[4][1] .and. IMC <= TabelaIMC[4][2]
+            FWAlertInfo(Mensagem + TabelaIMC[4][3], "Resultado - IMC")
+        Case IMC >= TabelaIMC[5][1] .and. IMC <= TabelaIMC[5][2]
+            FWAlertInfo(Mensagem + TabelaIMC[5][3], "Resultado - IMC")
+        Case IMC >= TabelaIMC[6][1] .and. IMC <= TabelaIMC[6][2]
+            FWAlertInfo(Mensagem + TabelaIMC[6][3], "Resultado - IMC")
+        OTHERWISE
+            FWAlertInfo("Resultado não encontrado", "Resultado - IMC")
+    EndCase
+
+Return
